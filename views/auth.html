@@ -127,19 +127,22 @@
 				}
 			})
 			let data = await res.json()
-			console.log("logined data", data);
-			localStorage.setItem("token", data.token);
-			swal("Hey", "Loggined Succusfully!", "success");
-			
-
-			const myTimeout = setTimeout(myGreeting, 1000);
-
-			function myGreeting() {
-				window.location.href = "admin.html";
+			console.log("logined data", data.user._id);
+			if (data.token !== undefined) {
+				
+				localStorage.setItem("token", data.token);
+				localStorage.setItem("loginedId", data.user._id);
+				swal("Hey", "Loggined Succusfully!", "success");
+				const myTimeout = setTimeout(myGreeting, 1000);
+				function myGreeting() {
+					// window.location.href = "admin.html";
+				}
+			}else{
+				alert("invalid username or password")
 			}
 
 		} catch (err) {
-			alert("invalid username or password")
+			alert("enter username and password")
 			console.log("err", "err");
 		}
 	}

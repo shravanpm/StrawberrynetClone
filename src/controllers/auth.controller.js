@@ -9,7 +9,6 @@ const generateToken = (user) => {
 
 const register = async (req, res) => {
   try {
-    console.log(req.body);
     let user = await User.findOne({ email: req.body.email });
 
     //checking email

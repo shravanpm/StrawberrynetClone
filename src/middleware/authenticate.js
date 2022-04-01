@@ -35,7 +35,6 @@ const authenticate = async (req,res,next) => {
         return res.status(400).send({message : "Authorization token not found or incorrect"})
     }
 
-    console.log(decoded)
 
     req.email = decoded.user.email
     req.user = decoded.user;
