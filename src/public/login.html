@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
+
+    <title>Login and signup</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="form-box">
+        <div class="button-box">
+          <div id="btn"></div>
+          <button type="button" class="toggle-btn" onclick="signIn()">
+            Sign In
+          </button>
+          <button type="button" class="toggle-btn" onclick="register()">
+            New Here?
+          </button>
+        </div>
+        <form id="login" class="input-group" action="/login" method="POST">
+          <input
+            type="text"
+            class="input-field"
+            id="Email"
+            placeholder="Email address"
+            name="email"
+            required
+          />
+          <input
+            type="password"
+            class="input-field"
+            id="Pass"
+            placeholder="Password"
+            name="password"
+            required
+          />
+          <a href="https://www.strawberrynet.com/en-in/#" id="anchor"
+            >Forgot Password</a
+          >
+          <p id="valid" style="color: red"></p>
+          <button
+            type="submit"
+            id="login1"
+            class="submit-btn" value="Login"
+            style="margin-top: 50px"
+          >
+            SIGNIN
+          </button>
+        </form>
+        <form
+          id="register"
+          action="/register"
+          method="POST"
+          class="input-group"
+        >
+          <input
+            type="text"
+            id="fname"
+            class="input-field"
+            placeholder="First name"
+            name="fname"
+            required
+          />
+          <input
+            type="text"
+            id="lname"
+            class="input-field"
+            placeholder="Last Name"
+            name="lname"
+            required
+          />
+          <input
+            type="text"
+            id="email"
+            class="input-field"
+            placeholder="Email address"
+            name="email"
+            required
+          />
+          <input
+            type="password"
+            id="pass"
+            class="input-field"
+            placeholder="Password"
+            name="password"
+            required
+          />
+          <input type="checkbox" checked class="check-box" /><span
+            >Subscribe to our exclusive email offers</span
+          >
+          <p id="valid" style="color: red"></p>
+          <button type="submit" id="register1" value="Register" class="submit-btn">
+            REGISTER
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
+  <script>
+    var x = document.getElementById("login");
+    var y = document.getElementById("register");
+    var z = document.getElementById("btn");
+
+    function register() {
+      x.style.left = "-400px";
+      y.style.left = "50px";
+      z.style.left = "110px";
+    }
+    function signIn() {
+      x.style.left = "50px";
+      y.style.left = "450px";
+      z.style.left = "0";
+    }
+    // document.querySelector("#register1").addEventListener("click", addItem);
+    // function addItem(event) {
+    //   var fname = document.querySelector("#fname").value;
+    //   var lname = document.querySelector("#lname").value;
+    //   var email = document.querySelector("#email").value;
+    //   var pass = document.querySelector("#pass").value;
+      // console.log(fname, lname, pass, email);
+      // if (fname == "") {
+      //   document.getElementById("valid").innerHTML =
+      //     "** Please Fill the Name First";
+      // } else if (lname == "") {
+      //   document.getElementById("valid").innerHTML =
+      //     "** Please Fill the Last-Name";
+      // } else if (email == "") {
+      //   document.getElementById("valid").innerHTML =
+      //     "** Please Fill your email address";
+      // } else if (pass == "") {
+      //   document.getElementById("valid").innerHTML =
+      //     "** Please Fill the Password";
+      // } else if (pass.length < 5) {
+      //   document.getElementById("valid").innerHTML =
+      //     "** Please Enter Strong Password";
+      // }
+      // else {
+      //     window.location.href = "login.html";
+      //   }
+    //   localStorage.setItem("Fname", fname);
+    //   localStorage.setItem("Lname", lname);
+    //   localStorage.setItem("Email", email);
+    //   localStorage.setItem("Pass", pass);
+    // }
+
+    // document.querySelector("#login1").addEventListener("click", myFun);
+    // function myFun(e) {
+    //   e.preventDefault();
+    //   var email = document.querySelector("#Email").value;
+    //   var pass = document.querySelector("#Pass").value;
+      // if (email == "") {
+      //   document.getElementById("valid").innerHTML =
+      //     "** Please Fill the Name First";
+      // }
+      //  else if(pass == ""){
+      //   document.getElementById("valid").innerHTML =
+      //     "** Please Fill the Password";
+      // }
+
+      // var email1 = localStorage.getItem("Email");
+      // var pass1 = localStorage.getItem("Pass");
+      // console.log(email, email1);
+      // console.log(pass, pass1);
+
+    //   if (email == email1 && pass == pass1) {
+    //     alert("Successful");
+    //     var loginedUser = localStorage.getItem("Fname");
+    //     localStorage.setItem("LoginedUser", loginedUser);
+
+    //     window.location.href = "Home.html";
+    //   } else {
+    //     alert("You are enter wrong data");
+    //   }
+    // }
+  </script>
+</html>

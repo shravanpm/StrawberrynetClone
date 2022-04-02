@@ -1,0 +1,12 @@
+{
+  "name": "evn",
+  "version": "0.0.1",
+  "description": "Manage events",
+  "main": "index.js",
+  "repository": { "type": "git", "url": "https://github.com/jmjuanes/evn.git" },
+  "keywords": [ "events", "evn", "eventbus" ],
+  "author": "Josemi Juanes <josemijuanes@gmail.com>",
+  "homepage": "https://github.com/jmjuanes/evn",
+  "license": "MIT",
+  "dependencies": { }
+}
