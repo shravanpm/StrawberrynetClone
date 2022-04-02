@@ -3,10 +3,11 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const bcrypt = require("bcryptjs");
-const port = process.env.PORT || 5000;
+// const port = process.env.PORT || 5000;
 require("./db/conn");
 
 const Register = require("./models/registers")
+
 app.use(express.json());
 app.use(express.urlencoded({extended:false}))
 
@@ -64,6 +65,6 @@ app.post("/login", async (req,res)=>{
     }
 })
 
-app.listen(port, () => {
-  console.log(`listening on port ${port}`);
+app.listen(5000, () => {
+  console.log(`listening on port 5000`);
 });
