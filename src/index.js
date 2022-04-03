@@ -12,6 +12,7 @@ app.use(cors())
 // app.use(express.static("views"))
 
 app.use("/admin",userController)
+app.use("/user",userController)
 app.use("/cart",cartController)
 app.post("/register", register)
 app.post("/login", login)

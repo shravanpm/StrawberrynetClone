@@ -6,7 +6,7 @@ const adminSchema = new mongoose.Schema({
     name:{type : String },
     email : {type : String, required : true, unique:true},
     password : {type : String, required : true},
-    role:[{type:String}]
+    role : {type:String,enum : ["admin","customer"],default:"customer"}
 },{
     timestamps : true,
     versionKey : false,
@@ -23,6 +23,6 @@ adminSchema.methods.checkPassword = function(password){
 }
 
 
-const Admin = mongoose.model("admin", adminSchema)
+const Admin = mongoose.model("user", adminSchema)
 
 module.exports = Admin;

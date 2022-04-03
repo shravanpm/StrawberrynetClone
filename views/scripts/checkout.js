@@ -1,15 +1,89 @@
+//getdata function
+
+async function getCartData(){
+    try {
+        let token = JSON.parse(localStorage.getItem("token"));
+        let res = await fetch("http://localhost:5000/cart",{
+            headers : {
+                "Content-Type" : "application/json",
+                "authorization" : `Bearer ${token}`
+            }
+        });
+        let data = await res.json();
+        return data;
+        // console.log(data);
+    } catch (error) {
+        
+    }
+}
+//delete cart after payment api call
+
+async function deleteCartData(){
+    try {
+        let token = JSON.parse(localStorage.getItem("token"));
+        let res = await fetch("http://localhost:5000/cart",{
+            method:"DELETE",
+            headers : {
+                "Content-Type" : "application/json",
+                "authorization" : `Bearer ${token}`
+            }
+        });
+        
+    } catch (error) {
+        
+    }
+}
 //totalCart is var declared for taking the final total and variable from cart page
-let totalCart = JSON.parse(localStorage.getItem("totalCart"));
-let cartdata = JSON.parse(localStorage.getItem("projectData"));
-var Laodcount =  document.getElementsByClassName("cartCount")[0]
-Laodcount.innerHTML=cartdata.length;
+
 
 //checkOutData is the variable used for taking the product detals and no.of products from cart page
-let checkOutData = JSON.parse(localStorage.getItem("checkOutData")) || [];
-console.log(totalCart);
+let checkOutData = await getCartData();
+console.log(checkOutData);
 
+let totalCart = getCartTotal(checkOutData);
 let cartValue = document.getElementById("cartValue");
+function getCartTotal(data){
+    let obj = {};
+    let arr = [];
+    let sum = 0;
+    data.map(function (el){
+        sum = sum+(el.prodId.price * el.quantity);
+    });
+    obj.cartTotal = sum;
 
+    let temp = (sum*10)/100;
+    temp = temp.toFixed(2);
+
+    obj.newCustomer = temp;
+
+    sum = sum-temp;
+
+    temp = (sum*8)/100;
+    temp = temp.toFixed(2);
+
+    obj.february = temp;
+
+    sum = sum-temp;
+
+    if(sum<11582 && sum !==0){
+        temp = 772.20;
+        sum = sum+temp;
+        
+    }else{
+        temp = 0;
+    }
+    obj.stdShip = temp;
+    sum = sum+temp;
+
+    temp = 240.60;
+    obj.freight = temp;
+    sum = sum+temp;
+    sum = sum.toFixed(2)
+    obj.total = sum;
+    arr.push(obj);
+    return arr;
+
+}
 // <!--------To show the cart total in Right hand side  -->
 function showCartValue(data){
 
@@ -60,7 +134,7 @@ total: "3250.88"
         div3.id = "redtext"
         
         let p3 = document.createElement("p");
-        p3.innerText = `Extra 8% Off (February Sale)`
+        p3.innerText = `Extra 8% Off (March Sale)`
         let p4 = document.createElement("p");
         p4.innerText =`-INR ${el.february}`;
 
@@ -118,8 +192,11 @@ total: "3250.88"
     });
 
 }
+console.log("total cart",totalCart)
+if(totalCart){
+    showCartValue(totalCart);
+}
 
-showCartValue(totalCart);
 
 //function enterDetail is used to show address input section in checkout page(html content)
 function enterDetail(){
@@ -197,29 +274,29 @@ function showData(data){
         let div1 = document.createElement("div");
         div1.id = "cardImage"
         let image = document.createElement("img");
-        image.src = el.image;
+        image.src = el.prodId.image;
         div1.append(image);
 
         let div2 = document.createElement("div");        
         let title = document.createElement("p");
-        title.innerText = el.title;
+        title.innerText = el.prodId.name;
         let desc = document.createElement("p");
-        desc.innerText = el.desc;
+        desc.innerText = el.prodId.brand;
         let single = document.createElement("p");
-        single.innerText = `INR ${el.single}`;
+        single.innerText = `INR ${el.prodId.price}`;
         div2.append(title,desc,single);
 
         let div3 = document.createElement("div");
         let qty = document.createElement("p");
-        qty.innerText = el.qty;
+        qty.innerText = el.quantity;
         div3.append(qty);
 
         let div5 = document.createElement("div");
         let price = document.createElement("p");
-        price.innerText = el.price;
+        price.innerText = el.prodId.price * el.quantity
         div5.append(price);
 
-        sum = sum+el.price;
+        sum = sum+(el.prodId.price * el.quantity);
         count++;
 
         div.append(div1,div2,div3,div5);
@@ -578,11 +655,11 @@ cvv.toString();
 if((cardNumber.length == 12) && (expiry.length == 5) && (cvv.length == 3)){
     alert("Payment Succesfull");
 
-    localStorage.removeItem("projectData");   
+    deleteCartData();  
 
     setTimeout(function(){
         window.location.href = "Home.html"
-    })
+    },100)
 }else{
     alert("Enterd wrong Card Details");
 }

@@ -127,22 +127,20 @@
 				}
 			})
 			let data = await res.json()
-			console.log("logined data", data.user._id);
-			if (data.token !== undefined) {
+			console.log("logined data", data);
+			
 				
-				localStorage.setItem("token", data.token);
-				localStorage.setItem("loginedId", data.user._id);
+				localStorage.setItem("admintoken", data.token);
+				localStorage.setItem("adminloginedId", data.user._id);
 				swal("Hey", "Loggined Succusfully!", "success");
 				const myTimeout = setTimeout(myGreeting, 1000);
 				function myGreeting() {
-					// window.location.href = "admin.html";
+					window.location.href = "admin.html";
 				}
-			}else{
-				alert("invalid username or password")
-			}
+			
 
 		} catch (err) {
-			alert("enter username and password")
+			swal("Hey", "Loggined failed!", "info");
 			console.log("err", "err");
 		}
 	}

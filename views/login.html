@@ -15,10 +15,12 @@
     <div class="form-box">
       <div class="button-box">
         <div id="btn"></div>
-        <button type="button" class="toggle-btn" onclick="signIn()">Sign In</button>
-        <button type="button" class="toggle-btn"  onclick="register()">New Here?</button>
+        <button type="button" id="kkkk" class="toggle-btn" onclick="signIn()">Sign In</button>
+        <button type="button" class="toggle-btn" onclick="registeddr()">New Here?</button>
+
       </div>
       <form id="login" class="input-group">
+
         <input type="text" class="input-field" id="Email" placeholder="Email address" required>
         <input type="password" class="input-field" id="Pass" placeholder="Password" required>
         <a href="https://www.strawberrynet.com/en-in/#" id="anchor">Forgot Password</a>
@@ -27,23 +29,27 @@
       </form>
       <form id="register" class="input-group">
         <input type="text" id="fname" class="input-field" placeholder="First name" required>
-        <input type="text" id="lname" class="input-field" placeholder="Last Name" required>
         <input type="text" id="email" class="input-field" placeholder="Email address" required>
         <input type="password" id="pass" class="input-field" placeholder="Password" required>
         <input type="checkbox" checked class="check-box"><span>Subscribe to our exclusive email offers</span>
-        <p id="valid" style="color: red"></p>
         <button type="submit" id="register1" class="submit-btn">REGISTER</button>
+
+        <p id="valid" style="color: red"></p>
       </form>
 
     </div>
   </div>
 </body>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <script>
   var x = document.getElementById("login");
   var y = document.getElementById("register");
   var z = document.getElementById("btn");
+  // document.getElementById("kkkk").addEventListener("click",register)
 
-  function register() {
+  function registeddr() {
+
     x.style.left = "-400px";
     y.style.left = "50px";
     z.style.left = "110px";
@@ -55,68 +61,111 @@
     z.style.left = "0";
 
   }
+  // document.querySelector("#register1").addEventListener("click", addItem);
+  // function addItem(event) {
+  var fname = document.querySelector("#fname").value;
+  var email = document.querySelector("#email").value;
+  var pass = document.querySelector("#pass").value;
+
+  //   localStorage.setItem("Fname", fname);
+  //   localStorage.setItem("Lname", lname);
+  //   localStorage.setItem("Email", email);
+  //   localStorage.setItem("Pass", pass);
+  // }
+
+  // document.querySelector("#login1").addEventListener("click", myFun);
+  // function myFun(e) {
+  //   e.preventDefault()
+  //   var email = document.querySelector("#Email").value;
+  //   var pass = document.querySelector("#Pass").value;
+
+
+  //   var email1 = localStorage.getItem("Email");
+  //   var pass1 = localStorage.getItem("Pass");
+  //   console.log(email,email1);
+  //   console.log(pass,pass1);
+
+  //   if (email == email1 && pass == pass1) {
+  //     alert("Successful");
+  //     var loginedUser = localStorage.getItem("Fname");
+  //     localStorage.setItem("LoginedUser", loginedUser);
+
+
+
+
+  //     window.location.href = "Home.html";
+  //   } else {
+  //     alert("You are enter wrong data");
+  //   }
+  // }
+
+
   document.querySelector("#register1").addEventListener("click", addItem);
-  function addItem(event) {
-    var fname = document.querySelector("#fname").value;
-    var lname = document.querySelector("#lname").value;
-    var email = document.querySelector("#email").value;
-    var pass = document.querySelector("#pass").value;
-    // console.log(fname, lname, pass, email);
-    // if (fname == "") {
-    //   document.getElementById("valid").innerHTML =
-    //     "** Please Fill the Name First";
-    // } else if (lname == "") {
-    //   document.getElementById("valid").innerHTML =
-    //     "** Please Fill the Last-Name";
-    // } else if (email == "") {
-    //   document.getElementById("valid").innerHTML =
-    //     "** Please Fill your email address";
-    // } else if (pass == "") {
-    //   document.getElementById("valid").innerHTML =
-    //     "** Please Fill the Password";
-    // } else if (pass.length < 5) {
-    //   document.getElementById("valid").innerHTML =
-    //     "** Please Enter Strong Password";
-    // }
-    // else {
-    //     window.location.href = "login.html";
-    //   }
-    localStorage.setItem("Fname", fname);
-    localStorage.setItem("Lname", lname);
-    localStorage.setItem("Email", email);
-    localStorage.setItem("Pass", pass);
+  async function addItem(event) {
+    event.preventDefault()
+
+    try {
+      let register_data = {
+        name: document.querySelector("#fname").value,
+        email: document.querySelector("#email").value,
+        password: document.querySelector("#pass").value
+
+      }
+      register_data = JSON.stringify(register_data)
+      let res = await fetch("http://localhost:5000/register", {
+        method: "POST",
+        body: register_data,
+        headers: {
+          "Content-Type": "Application/json"
+        },
+      })
+      let data = await res.json()
+      swal("Hey", "Signup Finished!", "success");
+
+      console.log(data);
+
+    } catch (err) {
+      console.log("err", err)
+    }
+
   }
-  
-  document.querySelector("#login1").addEventListener("click", myFun);
-  function myFun(e) {
-    e.preventDefault()
-    var email = document.querySelector("#Email").value;
-    var pass = document.querySelector("#Pass").value;
-    // if (email == "") {
-    //   document.getElementById("valid").innerHTML =
-    //     "** Please Fill the Name First";
-    // }
-    //  else if(pass == ""){
-    //   document.getElementById("valid").innerHTML =
-    //     "** Please Fill the Password";
-    // }
 
-    var email1 = localStorage.getItem("Email");
-    var pass1 = localStorage.getItem("Pass");
-    console.log(email,email1);
-    console.log(pass,pass1);
+  document.querySelector("#login1").addEventListener("click", Login);
 
-    if (email == email1 && pass == pass1) {
-      alert("Successful");
-      var loginedUser = localStorage.getItem("Fname");
-      localStorage.setItem("LoginedUser", loginedUser);
+  async function Login(event) {
+    event.preventDefault()
 
-      
+    try {
+      let login_data = {
+        email: document.getElementById("Email").value,
+        password: document.getElementById("Pass").value
+      }
+      let login_data_json = JSON.stringify(login_data)
+      let res = await fetch("http://localhost:5000/login", {
+        method: "POST",
+        body: login_data_json,
+        headers: {
+          "Content-Type": "application/json",
+        }
+      })
+      let data = await res.json()
+      // getUser(login_data.username,data.token)
+      if (data.token !== undefined) {
 
-
-      window.location.href = "Home.html";
-    } else {
-      alert("You are enter wrong data");
+        localStorage.setItem("token", JSON.stringify(data.token));
+        localStorage.setItem("loginedId", data.user._id);
+        swal("Hey", "Loggined Succusfully!", "success");
+        const myTimeout = setTimeout(myGreeting, 1000);
+        function myGreeting() {
+          window.location.href = "Home.html";
+        }
+      } else {
+        alert("invalid username or password")
+      }
+      console.log("SUCC", data);
+    } catch (err) {
+      alert("enter username and password")
+      console.log(err);
     }
   }
 

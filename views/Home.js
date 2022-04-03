@@ -26,9 +26,10 @@ function filterFunction() {
 var arr1 = JSON.parse(localStorage.getItem("wishlist")) || [];
 var Laodcount = document.getElementsByClassName("cartCount")[0];
 console.log(Laodcount.innerText);
-var token = localStorage.getItem("token");
+var token = JSON.parse(localStorage.getItem("token"));
 var ID = localStorage.getItem("loginedId");
 var userAllready;
+
 function cartCountShow() {
   let url = `http://localhost:5000/cart`;
   async function FetchApi() {
@@ -37,14 +38,18 @@ function cartCountShow() {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          authorization: `Bearer ${token}`,
         },
       });
       let data = await res.json();
+      console.log();
 
-      console.log(data[0].prodId.length);
-      userAllready = data[0].prodId.length;
-      Laodcount.innerText = userAllready;
+      Laodcount.innerText = data.length;
+      if (data.length === undefined) {
+        Laodcount.innerText = 0
+      } else {
+        Laodcount.innerText = data.length;
+      }
     } catch (error) {
       console.log("error", error);
     }
@@ -52,10 +57,6 @@ function cartCountShow() {
   FetchApi();
 }
 cartCountShow();
-
-
-
-
 
 let getAllProducts = async () => {
   try {
@@ -154,43 +155,35 @@ function appendMask(mask) {
     btn.addEventListener("click", addToCart);
 
     async function addToCart() {
-
-      console.log("data",data);
+      console.log("data", data);
       try {
         let cart_data = {
           prodId: data._id,
-          userId: ID
+          userId: ID,
         };
-        let cart_data_json = JSON.stringify(cart_data)
-  
+        let cart_data_json = JSON.stringify(cart_data);
+
         let res = await fetch("http://localhost:5000/cart", {
           method: "POST",
-          body: cart_data_json ,
+          body: cart_data_json,
           headers: {
             "Content-type": "application/json",
-            "Authorization": `Bearer ${token}`
-          }
-        })
-        let dataa = await res.json()
-        cartCountShow()
-        console.log("logined data", dataa.there);
-        if (dataa.there === true) {
-          swal("Item already in cart", "", "info");
-        } else {
-          swal("Added to the cart", "", "success");
-        }
- 
-  
+            authorization: `Bearer ${token}`,
+          },
+        });
+        let dataa = await res.json();
+        cartCountShow();
+        console.log("logined data", dataa);
+
+        // swal("Item already in cart", "", "info");
+        swal("Added to the cart", "", "success");
       } catch (err) {
-        
+        swal("Item already in cart", "", "info");
+
         console.log("err", err);
       }
     }
 
-   
-        
-   
- 
     // }
 
     div.append(icon, image, nam, des, price, btn);

@@ -10,11 +10,12 @@ router.get("/", authenticate, async (req, res) => {
 //   if (req.email !== req.params.email) {
 //     return res.status(400).send({ message: "err" });
 //   } else {
+  console.log("SSSSSSSSSSSSSSs",req.email);
     try {
       const admin = await Admin.find({ "email": req.email });
       return res.status(200).send(admin);
     } catch (err) {
-      return res.status(400).send({ message: err.message });
+      return res.status(400).send({ message: err.message,loggedIn:false });
     }
 //   }
 });
