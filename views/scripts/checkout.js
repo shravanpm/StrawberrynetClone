@@ -3,7 +3,7 @@
 async function getCartData(){
     try {
         let token = JSON.parse(localStorage.getItem("token"));
-        let res = await fetch("http://localhost:5000/cart",{
+        let res = await fetch("http://34.215.217.165:5000/cart",{
             headers : {
                 "Content-Type" : "application/json",
                 "authorization" : `Bearer ${token}`
@@ -21,7 +21,7 @@ async function getCartData(){
 async function deleteCartData(){
     try {
         let token = JSON.parse(localStorage.getItem("token"));
-        let res = await fetch("http://localhost:5000/cart",{
+        let res = await fetch("http://34.215.217.165:5000/cart",{
             method:"DELETE",
             headers : {
                 "Content-Type" : "application/json",

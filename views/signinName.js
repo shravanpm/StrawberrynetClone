@@ -27,7 +27,7 @@ var profileIconShow = document.getElementById("profileIconShow");
 let ShowName = async (token) => {
   console.log("dddddddddddddddddddd");
   try {
-    let res = await fetch(`http://localhost:5000/user`, {
+    let res = await fetch(`http://34.215.217.165:5000/user`, {
       headers: {
         "Content-Type": "application/json",
         "authorization": `Bearer ${token}`,

@@ -31,7 +31,7 @@ var ID = localStorage.getItem("loginedId");
 var userAllready;
 
 function cartCountShow() {
-  let url = `http://localhost:5000/cart`;
+  let url = `http://34.215.217.165:5000/cart`;
   async function FetchApi() {
     try {
       let res = await fetch(url, {
@@ -60,7 +60,7 @@ cartCountShow();
 
 let getAllProducts = async () => {
   try {
-    let res = await fetch(`http://localhost:5000/products`);
+    let res = await fetch(`https://34.215.217.165:5000/products`);
     let data = await res.json();
     var mask = data.filter((item) => {
       return item.category === "mask";
@@ -163,7 +163,7 @@ function appendMask(mask) {
         };
         let cart_data_json = JSON.stringify(cart_data);
 
-        let res = await fetch("http://localhost:5000/cart", {
+        let res = await fetch("http://34.215.217.165:5000/cart", {
           method: "POST",
           body: cart_data_json,
           headers: {

@@ -22,7 +22,7 @@ async function logIn(url,body){
         "Content-Type" : "application/json"
     }}
     
-    let loginURL = "http://localhost:5000/login"
+    let loginURL = "http://34.215.217.165:5000/login"
     // logIn(loginURL,body);
 
 //getting cart data api call function
@@ -32,7 +32,7 @@ var Laodcount = document.getElementsByClassName("cartCount")[0];
 async function getCartData(){
     try {
         let token = JSON.parse(localStorage.getItem("token"));
-        let res = await fetch("http://localhost:5000/cart",{
+        let res = await fetch("http://34.215.217.165:5000/cart",{
             headers : {
                 "Content-Type" : "application/json",
                 "authorization" : `Bearer ${token}`
@@ -60,7 +60,7 @@ async function updatedCartData(id,x){
         
         let token = JSON.parse(localStorage.getItem("token"));
 
-        let url = "http://localhost:5000/cart/"+id;
+        let url = "http://34.215.217.165:5000/cart/"+id;
         // console.log(url);
         let res = await fetch(url,{
             method : "PATCH",
@@ -82,7 +82,7 @@ async function deleteOneData(id){
     try {
         let token = JSON.parse(localStorage.getItem("token"));
         
-        let url="http://localhost:5000/cart/"+id;
+        let url="http://34.215.217.165:5000/cart/"+id;
         // console.log("id",url)
         let res = await fetch(url,{
             method : "DELETE",

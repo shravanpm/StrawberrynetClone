@@ -104,7 +104,7 @@
 
   let getAdmin = async (token) => {
     try {
-      let res = await fetch(`http://localhost:5000/admin`, {
+      let res = await fetch(`http://34.215.217.165:5000/admin`, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
@@ -145,7 +145,7 @@
 
         let pdt_data_json = JSON.stringify(pdt_data)
 
-        let res = await fetch("http://localhost:5000/admin/addproduct", {
+        let res = await fetch("http://34.215.217.165:5000/admin/addproduct", {
           method: "POST",
           body: pdt_data_json,
           headers: {

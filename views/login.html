@@ -112,7 +112,7 @@
 
       }
       register_data = JSON.stringify(register_data)
-      let res = await fetch("http://localhost:5000/register", {
+      let res = await fetch("http://34.215.217.165:5000/register", {
         method: "POST",
         body: register_data,
         headers: {
@@ -141,7 +141,7 @@
         password: document.getElementById("Pass").value
       }
       let login_data_json = JSON.stringify(login_data)
-      let res = await fetch("http://localhost:5000/login", {
+      let res = await fetch("http://34.215.217.165:5000/login", {
         method: "POST",
         body: login_data_json,
         headers: {
