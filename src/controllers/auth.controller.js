@@ -1,10 +1,10 @@
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
-require('dotenv').config()
+//require('dotenv').config()
 
 const generateToken = (user) => {
-  // return jwt.sign({user}, process.env.SECRET_KEY)
-  return jwt.sign({ user }, process.env.SECRET_KEY);
+  // return jwt.sign({user}, "masai")
+  return jwt.sign({ user }, "masai");
 };
 
 const register = async (req, res) => {
