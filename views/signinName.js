@@ -1,6 +1,5 @@
 // https://a.cdnsbn.com/images/common/Strawbaby_default.png
 
-
 // var nameShow = document.getElementById("profileNameShow")
 // var profileIconShow = document.getElementById("profileIconShow")
 // var LoginedUser=localStorage.getItem("LoginedUser")
@@ -27,10 +26,10 @@ var profileIconShow = document.getElementById("profileIconShow");
 let ShowName = async (token) => {
   console.log("dddddddddddddddddddd");
   try {
-    let res = await fetch(`http://34.215.217.165:5000/user`, {
+    let res = await fetch(`https://strawberrynets-backend.herokuapp.com/user`, {
       headers: {
         "Content-Type": "application/json",
-        "authorization": `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
       },
     });
 
